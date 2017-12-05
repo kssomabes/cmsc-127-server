@@ -36,7 +36,7 @@ CREATE TABLE user_admin(
 );
 
 CREATE TABLE pr(
-	requestID INT (5) NOT NULL PRIMARY KEY,
+	requestID INT (5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	userID INT (5) NOT NULL,
 	dateSubmitted datetime NOT NULL,
 	dateApproved datetime DEFAULT NULL,
