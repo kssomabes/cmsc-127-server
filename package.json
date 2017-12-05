@@ -1,0 +1,30 @@
+{
+  "name": "cmsc-127",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "build": "mysql -u root -p < ./database/schema.sql",
+    "configure": "node ./database/config.js",
+    "prettify": "prettier --tab-width 2 --single-quote --jsx-bracket-same-line --write \"./entities/**/*.js\" \"./database/*.js\""
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "morgan": "^1.9.0",
+    "mysql": "^2.15.0",
+    "nodemon": "^1.12.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kssomabes/cmsc-127.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kssomabes/cmsc-127/issues"
+  },
+  "homepage": "https://github.com/kssomabes/cmsc-127#readme"
+}

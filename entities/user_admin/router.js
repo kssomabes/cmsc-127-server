@@ -1,0 +1,47 @@
+const express = require('express');
+const router = express.Router();
+var ctrl = require('./controller');
+
+router.get('/', (req, res) => {
+	ctrl.getAll((err, rows) => {
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else{
+			res.status(200).json({status: 200, data: rows, message: 'S'});
+		}
+	});
+});	
+
+router.get('/getAllPurchReq', (req, res) => {
+	ctrl.getAllPurchReq((err, rows) => {
+
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else{
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
+		}
+
+	});
+});
+
+router.get('/getAllPurchOrder', (req, res) => {
+	ctrl.getAllPurchOrder((err, rows) => {
+
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else{
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
+		}
+
+	});
+});
+
+router.post('/approve/:req_id', (req, res) => {
+	ctrl.approvePurchReq(req.session.user.userID, (err, rows) => {
+
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else{
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
+		}
+		
+	});
+});
+
+module.exports = router;
