@@ -54,23 +54,29 @@ module.exports.getAllPurchOrderOfUser = function (userID, callback){
 }
 
 module.exports.deletePurchReq = function(requestID, callback){
-	db.query('DELETE FROM pr_item WHERE requestID = ?',
+	//Checks first if purch req is not approved yet
+	db.query('SELECT * FROM pr WHERE requestID = ? AND dateApproved IS NULL',
 		requestID, (err, rows) => {
-			console.log('rows ', rows);
-			if (err) callback(err);
-			else callback(null, rows);
-
+		console.log('rows ', rows);
+		if (err) callback(err);
+		else{
+			db.query('DELETE FROM pr_item WHERE requestID = ?',
+				requestID, (err, rows) => {
+				console.log('rows ', rows);
+				if (err) callback(err);
+				else{
+					db.query('DELETE FROM pr WHERE requestID = ?',
+					requestID, (err, rows) => {
+						console.log('rows ', rows);
+						if (err) callback(err);
+						else callback(null, rows);
+					});
+					callback(null, rows);
+					}
+				});
+			callback(null, rows);
 		}
-	);
-
-	db.query('DELETE FROM pr WHERE requestID = ?',
-		requestID, (err, rows) => {
-			console.log('rows ', rows);
-			if (err) callback(err);
-			else callback(null, rows);
-
-		}
-	);
+	});
 }
 
 module.exports.addNewItem = function(body, callback){
@@ -120,4 +126,18 @@ module.exports.prNjoinPurchOrd = function(callback){
 		else callback(null, rows);
 	}
 	);
+}
+
+module.exports.approvePurchReq = function (requestID, userID, callback){
+	var date = new Date();
+	console.log(requestID+" "+userID);
+	db.query('UPDATE pr SET dateApproved = ?, approvedBy = ? WHERE requestID = ?', 
+		[date, userID, requestID], (err, rows) => {
+			console.log('rows ', rows);
+			if (err) callback(err);
+			else callback(null, rows);		
+			
+		}
+	);
+		
 }
