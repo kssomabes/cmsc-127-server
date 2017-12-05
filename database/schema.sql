@@ -94,6 +94,11 @@ INSERT INTO user_admin (`adminID`, `userID`) VALUES (1, 2);
 INSERT INTO user_normal (`email`, `noOfReq`, `contactNum`, `userID`) VALUES ('user@email.com', 12, '09222222', 1);
 
 INSERT INTO item (`itemCode`, `name`, `supplier`, `unitPrice`, `quantity`, `description`) VALUES (1, 'Bond Paper', 'National Bookstore', 156.75, 2, 'Used for printing');
+INSERT INTO item (`itemCode`, `name`, `supplier`, `unitPrice`, `quantity`, `description`) VALUES (2, 'Ballpoint Pen', 'National Bookstore', 32.50, 6, 'Used for writing');
 
 INSERT INTO pr (`requestID`, `userID`, `dateSubmitted`, `dateApproved`, `approvedBy`) VALUES (1, 1, NOW(), NULL, NULL);
+INSERT INTO pr_item (`requestID`, `itemCode`, `quantity`) VALUES(1, 1, 20);
+INSERT INTO pr_item (`requestID`, `itemCode`, `quantity`) VALUES(1, 2, 50);
+
 INSERT INTO pr (`requestID`, `userID`, `dateSubmitted`, `dateApproved`, `approvedBy`) VALUES (2, 1, NOW(), NOW(), 2);
+INSERT INTO pr_item (`requestID`, `itemCode`, `quantity`) VALUES(2, 2, 10);

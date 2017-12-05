@@ -110,18 +110,18 @@ module.exports.deleteItem= function(itemCode, callback){
 	);
 }
 
-module.exports.prNjoinPurchReq = function(callback){
+module.exports.prNjoinItem = function(callback){
 
-	db.query('SELECT requestID, userId, dateSubmitted, itemCode, quantity, name, supplier, unitPrice, description FROM pr NATURAL JOIN pr_item NATURAL JOIN item WHERE dateApproved IS NULL', (err, rows) => {
+	db.query('SELECT requestID, userId, dateSubmitted, itemCode, quantity FROM pr NATURAL JOIN pr_item WHERE dateApproved IS NULL', (err, rows) => {
 		if (err) callback(err);
 		else callback(null, rows);
 	}
 	);
 }
 
-module.exports.prNjoinPurchOrd = function(callback){
+module.exports.poNjoinItem = function(callback){
 
-	db.query('SELECT requestID, userId, dateSubmitted, itemCode, quantity, name, supplier, unitPrice, description FROM pr NATURAL JOIN pr_item NATURAL JOIN item WHERE dateApproved IS NOT NULL', (err, rows) => {
+	db.query('SELECT requestID, userId, dateSubmitted, itemCode, quantity FROM pr NATURAL JOIN pr_item WHERE dateApproved IS NOT NULL', (err, rows) => {
 		if (err) callback(err);
 		else callback(null, rows);
 	}

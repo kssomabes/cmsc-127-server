@@ -79,20 +79,20 @@ router.delete('/deleteItem', (req, res) => {
 	});
 });
 
-router.get('/prNjoinPurchReq', (req, res) => {
-	ctrl.prNjoinPurchReq((err, rows) => {
+router.get('/prNjoinItem', (req, res) => {
+	ctrl.prNjoinItem((err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
-			res.status(200).json({status: 200, data: rows, message: 'S'});
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
 		}
 	});
 });
 
-router.get('/prNjoinPurchOrd', (req, res) => {
-	ctrl.prNjoinPurchOrd((err, rows) => {
+router.get('/poNjoinItem', (req, res) => {
+	ctrl.poNjoinItem((err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
-			res.status(200).json({status: 200, data: rows, message: 'S'});
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
 		}
 	});
 });
