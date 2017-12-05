@@ -20,4 +20,38 @@ router.get('/getMyPurchOrder', (req, res) => {
 	});
 });
 
+router.delete('/deletePurchReq', (req, res) => {
+	ctrl.deletePurchReq(req.body.requestID, (err, rows) => {
+		console.log(req.body.requestID);
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else res.status(200).json({status: 200, data: rows, message: 'Success'});
+
+	});
+});
+
+router.post('/addNewPurchReq', (req, res) => {
+	ctrl.addNewPurchReq(req.body, (err, rows) => {
+		console.log(req.body);
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else{
+			res.status(200).json({status: 200, data: rows, message: 'Successfully added to pr'});
+			ctrl.addPurchItem(req.body, (err, rows) => {
+				console.log(req.body);
+				if (err) res.status(500).json({status: 500, message: 'Server error'});
+				else res.status(200).json({status: 200, data: rows, message: 'Successfully added to pr_item'});
+
+			});	
+		}
+	});
+});
+
+router.post('/updatePurchReq', (req, res) => {
+	ctrl.updatePurchReq(req.body, (err, rows) => {
+		console.log(req.body);
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else res.status(200).json({status: 200, data: rows, message: 'Success'});
+
+	});
+});
+
 module.exports = router;
