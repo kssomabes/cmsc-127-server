@@ -88,8 +88,8 @@ router.get('/poNjoinItem', (req, res) => {
 	});
 });
 
-router.post('/approve/:req_id', (req, res) => {
-	console.log(req.params);
+router.put('/approve/:req_id', (req, res) => {
+		console.log(req.params);
 	ctrl.approvePurchReq(req.params.req_id, req.session.user.userID, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
