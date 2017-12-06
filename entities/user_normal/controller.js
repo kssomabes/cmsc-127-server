@@ -43,10 +43,8 @@ module.exports.deletePurchReq = function(requestID, callback){
 						if (err) callback(err);
 						else callback(null, rows);
 					});
-					callback(null, rows);
-					}
-				});
-			callback(null, rows);
+				}
+			});
 		}
 	});
 }
