@@ -98,7 +98,7 @@ router.get('/poNjoinItem', (req, res) => {
 });
 
 router.put('/approve/:req_id', (req, res) => {
-	ctrl.approvePurchReq(req.params.req_id[1], req.session.user.userID, (err, rows) => {
+	ctrl.approvePurchReq(req.params.req_id, req.session.user.userID, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
 			res.status(200).json({status: 200, data: rows, message: 'Success'});
@@ -107,7 +107,7 @@ router.put('/approve/:req_id', (req, res) => {
 });
 
 router.get('/viewItemsInPr/:currentReqId', (req, res) => {
-	ctrl.viewItemsInPr(req.params.currentReqId[1], (err, rows) => {
+	ctrl.viewItemsInPr(req.params.currentReqId, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
 			res.status(200).json({status: 200, data: rows, message: 'Success'});
@@ -117,7 +117,7 @@ router.get('/viewItemsInPr/:currentReqId', (req, res) => {
 });
 
 router.get('/viewItemsInPo/:currentReqId', (req, res) => {
-	ctrl.viewItemsInPo(req.params.currentReqId[1], (err, rows) => {
+	ctrl.viewItemsInPo(req.params.currentReqId, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
 			res.status(200).json({status: 200, data: rows, message: 'Success'});
