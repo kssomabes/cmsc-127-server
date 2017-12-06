@@ -34,7 +34,7 @@ router.get('/getAllPurchOrder', (req, res) => {
 });
 
 router.get('/getItem/:item_code', (req, res) => {
-	ctrl.getItem(req.params.item_code[1], (err, rows) => {
+	ctrl.getItem(req.params.item_code, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
 			res.status(200).json({status: 200, data: rows, message: 'Success'});

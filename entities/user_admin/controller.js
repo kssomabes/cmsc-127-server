@@ -11,7 +11,8 @@ module.exports.getAll = function(callback){
 
 module.exports.getAllPurchReq = function (callback){
 
-	db.query('SELECT * FROM pr WHERE dateApproved is NULL ORDER BY dateSubmitted', (err, rows) => {
+	db.query('SELECT requestID, userID, dateSubmitted FROM pr WHERE dateApproved is NULL GROUP BY requestID ORDER BY dateSubmitted', (err, rows) => {
+		console.log(err);
 		if (err) callback(err);
 		else callback(null, rows);
 	});
@@ -152,8 +153,9 @@ module.exports.getItem = function (itemCode, callback){
 }
 
 module.exports.viewItemsInPr = function (currentReqId, callback){
-	db.query('SELECT a.itemCode, a.quantity, b.name, b.supplier, b.unitPrice, b.quantity, b.description FROM pr_item a, item b WHERE a.requestID = ? AND a.itemCode = b.itemCode', currentReqId, (err, rows) => {
+	db.query('SELECT a.itemCode as itemCode, a.quantity as reqQuantity, b.name as name, b.supplier as supplier, b.unitPrice as unitPrice, b.quantity as curQuantity, b.description as description FROM pr_item a, item b WHERE a.requestID = ? AND a.itemCode = b.itemCode', currentReqId, (err, rows) => {
 			console.log('rows ', rows);
+			console.log(err);
 			if (err) callback(err);
 			else callback(null, rows);		
 			
@@ -162,7 +164,7 @@ module.exports.viewItemsInPr = function (currentReqId, callback){
 }
 
 module.exports.viewItemsInPo = function (currentReqId, callback){
-	db.query('SELECT a.itemCode, a.quantity, b.name, b.supplier, b.unitPrice, b.quantity, b.description FROM pr_item a, item b WHERE a.requestID = ? AND a.itemCode = b.itemCode', currentReqId, (err, rows) => {
+	db.query('SELECT a.itemCode as itemCode, a.quantity as reqQuantity, b.name as name, b.supplier as supplier, b.unitPrice as unitPrice, b.quantity as curQuantity, b.description as description FROM pr_item a, item b WHERE a.requestID = ? AND a.itemCode = b.itemCode', currentReqId, (err, rows) => {
 			console.log('rows ', rows);
 			if (err) callback(err);
 			else callback(null, rows);		
