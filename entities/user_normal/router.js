@@ -20,9 +20,8 @@ router.get('/getMyPurchOrder', (req, res) => {
 	});
 });
 
-router.delete('/deletePurchReq', (req, res) => {
-	ctrl.deletePurchReq(req.body.requestID, (err, rows) => {
-		console.log(req.body.requestID);
+router.delete('/deleteMyPR/:req_id', (req, res) => {
+	ctrl.deletePurchReq(req.params.req_id, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else res.status(200).json({status: 200, data: rows, message: 'Success'});
 
