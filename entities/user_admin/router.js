@@ -33,15 +33,6 @@ router.get('/getAllPurchOrder', (req, res) => {
 	});
 });
 
-router.post('/approve/:req_id', (req, res) => {
-	ctrl.approvePurchReq(req.params.req_id, req.session.user.userID, (err, rows) => {
-		if (err) res.status(500).json({status: 500, message: 'Server error'});
-		else{
-			res.status(200).json({status: 200, data: rows, message: 'Success'});
-		}
-		
-	});
-});
 
 router.delete('/deletePurchReq', (req, res) => {
 	ctrl.deletePurchReq(req.body.requestID, (err, rows) => {
@@ -94,6 +85,28 @@ router.get('/poNjoinItem', (req, res) => {
 		else{
 			res.status(200).json({status: 200, data: rows, message: 'Success'});
 		}
+	});
+});
+
+router.post('/approve/:req_id', (req, res) => {
+	console.log(req.params);
+	ctrl.approvePurchReq(req.params.req_id, req.session.user.userID, (err, rows) => {
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else{
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
+		}
+		
+	});
+});
+
+router.post('/getItem/:item_code', (req, res) => {
+	console.log(req.params.item_code);
+	ctrl.getItem(req.params.item_code, (err, rows) => {
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else{
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
+		}
+		
 	});
 });
 

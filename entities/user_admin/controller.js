@@ -99,7 +99,7 @@ module.exports.updateItem = function(body, callback){
 	);
 }
 
-module.exports.deleteItem= function(itemCode, callback){
+module.exports.deleteItem = function(itemCode, callback){
 	db.query('DELETE FROM item WHERE itemCode = ?',
 		itemCode, (err, rows) => {
 			console.log('rows ', rows);
@@ -130,9 +130,19 @@ module.exports.poNjoinItem = function(callback){
 
 module.exports.approvePurchReq = function (requestID, userID, callback){
 	var date = new Date();
-	console.log(requestID+" "+userID);
 	db.query('UPDATE pr SET dateApproved = ?, approvedBy = ? WHERE requestID = ?', 
 		[date, userID, requestID], (err, rows) => {
+			console.log('rows ', rows);
+			if (err) callback(err);
+			else callback(null, rows);		
+			
+		}
+	);
+}
+
+module.exports.getItem = function (itemCode, callback){
+	console.log(itemCode+"a");
+	db.query('SELECT * FROM item WHERE itemCode = ?', itemCode, (err, rows) => {
 			console.log('rows ', rows);
 			if (err) callback(err);
 			else callback(null, rows);		
