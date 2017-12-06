@@ -141,7 +141,6 @@ module.exports.approvePurchReq = function (requestID, userID, callback){
 }
 
 module.exports.getItem = function (itemCode, callback){
-	console.log(itemCode+"a");
 	db.query('SELECT * FROM item WHERE itemCode = ?', itemCode, (err, rows) => {
 			console.log('rows ', rows);
 			if (err) callback(err);
@@ -151,3 +150,24 @@ module.exports.getItem = function (itemCode, callback){
 	);
 		
 }
+
+module.exports.viewItemsInPr = function (currentReqId, callback){
+	db.query('SELECT a.itemCode, a.quantity, b.name, b.supplier, b.unitPrice, b.quantity, b.description FROM pr_item a, item b WHERE a.requestID = ? AND a.itemCode = b.itemCode', currentReqId, (err, rows) => {
+			console.log('rows ', rows);
+			if (err) callback(err);
+			else callback(null, rows);		
+			
+		}
+	);
+}
+
+module.exports.viewItemsInPo = function (currentReqId, callback){
+	db.query('SELECT a.itemCode, a.quantity, b.name, b.supplier, b.unitPrice, b.quantity, b.description FROM pr_item a, item b WHERE a.requestID = ? AND a.itemCode = b.itemCode', currentReqId, (err, rows) => {
+			console.log('rows ', rows);
+			if (err) callback(err);
+			else callback(null, rows);		
+			
+		}
+	);
+}
+
