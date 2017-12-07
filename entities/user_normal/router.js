@@ -64,7 +64,7 @@ router.get('/viewItemsInPr/:currentReqId', (req, res) => {
 });
 
 router.get('/viewItemsInPo/:currentReqId', (req, res) => {
-	ctrl.viewItemsInPr(req.params.currentReqId, req.session.user.userID, (err, rows) => {
+	ctrl.viewItemsInPo(req.params.currentReqId, req.session.user.userID, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
 			res.status(200).json({status: 200, data: rows, message: 'Success'});

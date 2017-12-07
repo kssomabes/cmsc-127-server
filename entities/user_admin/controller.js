@@ -87,14 +87,14 @@ module.exports.addNewItem = function(body, callback){
 		if (err) callback(err);
 		else if (rows[0]!==undefined){
 			console.log("Item already exists");
-			callback(rows);
+			callback(null, "ALREADY_EXISTS");
 		}
 		else {
-			db.query('INSERT INTO item VALUES (?, ?, ?, ?, ?, ?)',
+			db.query('INSERT INTO item VALUES (0, ?, ?, ?, ?, ?)',
 			[body.itemCode, body.name, body.supplier, body.unitPrice, body.quantity, body.description], (err, rows) => {
 			console.log('rows ', rows);
 			if (err) callback(err);
-			else callback(null, rows);
+			else callback(null, "SUCCESS");
 			});
 		}
 	});
@@ -178,8 +178,6 @@ module.exports.viewItemsInPo = function (currentReqId, callback){
 			console.log('rows ', rows);
 			if (err) callback(err);
 			else callback(null, rows);		
-			
 		}
 	);
 }
-
