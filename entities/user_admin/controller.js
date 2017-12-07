@@ -116,13 +116,13 @@ module.exports.deleteItem = function(itemCode, callback){
 			if (err) callback(err);
 			else if (rows.length > 0) {
 				console.log("Unable to delete item");
-				callback(rows);
+				callback(null, 'EXISTING_PR');
 			}
 			else {
 				db.query('DELETE FROM item WHERE itemCode = ?', itemCode, (err, rows) => {
 				console.log('rows ', rows);
 				if (err) callback(err);
-				else callback(null, rows);
+				else callback(null, 'DELETED');
 				});
 			}
 		}

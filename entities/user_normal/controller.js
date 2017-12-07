@@ -59,14 +59,14 @@ module.exports.updatePurchReq = function(body, userID, callback){
 		if (err) callback(err);
 		else if (rows[0]===undefined) {
 			console.log("Cannot update");
-			callback(rows);
+			callback(null, 'FAIL');
 		}
 		else{
 			db.query('UPDATE pr_item SET itemCode = ?, quantity = ? WHERE requestID = ?',
 			[body.itemCode, body.quantity, body.requestID], (err, rows) => {
 				console.log('rows ', rows);
 				if (err) callback(err);
-				else callback(null, rows);
+				else callback(null, 'SUCCESS');
 			});
 		}
 	});

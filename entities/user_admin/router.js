@@ -59,11 +59,7 @@ router.delete('/deletePurchReq', (req, res) => {
 
 // add new item to inventory
 router.post('/addNewItem', (req, res) => {
-		console.log('aaaaa');
-			console.log(req.body);
 	ctrl.addNewItem(req.body, (err, rows) => {
-		console.log(req.body);
-		console.log(err);
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else res.status(200).json({status: 200, data: rows, message: 'Success'});
 
@@ -86,8 +82,12 @@ router.delete('/deleteItem/:item_code', (req, res) => {
 	ctrl.deleteItem(req.params.item_code, (err, rows) => {
 		console.log(req.params.item_code);
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
-		else res.status(200).json({status: 200, data: rows, message: 'Success'});
+		else{ 
+			
+			console.log('MESSAGE FROM CTRL: ', rows);
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
 
+		}
 	});
 });
 
