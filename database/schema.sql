@@ -78,7 +78,7 @@ CREATE TABLE pr_item(
 	quantity INT (4) NOT NULL,
 	CONSTRAINT pr_item_pr_fk FOREIGN KEY (requestID)
 	REFERENCES pr(requestID),
-		CONSTRAINT pr_item_purchase_requisition_fk FOREIGN KEY (itemCode)
+	CONSTRAINT pr_item_purchase_requisition_fk FOREIGN KEY (itemCode)
 	REFERENCES item(itemCode)
 );
 
