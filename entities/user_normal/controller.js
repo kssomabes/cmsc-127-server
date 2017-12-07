@@ -72,11 +72,12 @@ module.exports.updatePurchReq = function(body, userID, callback){
 	});
 }
 
-module.exports.addNewPurchReq = function(body, callback){
+module.exports.addNewPurchReq = function(user, callback){
 	const date = new Date();
+	console.log('adding here!!!');
 
-	db.query('INSERT INTO pr VALUES (?, ?, ?, ?, ?)',
-		[body.requestID, body.userID, date, 'NULL', 'NULL'], (err, rows) => {
+	db.query('INSERT INTO pr VALUES (0, ?, ?, ?, ?)',
+		[user, date, null, null], (err, rows) => {
 		console.log('rows ', rows)
 		if (err) callback(err);
 		else callback(null, rows);
@@ -85,6 +86,7 @@ module.exports.addNewPurchReq = function(body, callback){
 }
 
 module.exports.addPurchItem = function(body, callback){
+	console.log('adding items');
 	db.query('INSERT INTO pr_item VALUES (?, ?, ?)',
 		[body.requestID, body.itemCode, body.quantity], (err, rows) => {
 		console.log('rows ', rows);
