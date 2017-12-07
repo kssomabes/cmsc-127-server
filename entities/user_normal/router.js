@@ -44,8 +44,8 @@ router.post('/addNewPurchReq', (req, res) => {
 	});
 });
 
-router.post('/updatePurchReq', (req, res) => {
-	ctrl.updatePurchReq(req.body, (err, rows) => {
+router.put('/updatePurchReq', (req, res) => {
+	ctrl.updatePurchReq(req.body, req.session.user.userID, (err, rows) => {
 		console.log(req.body);
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else res.status(200).json({status: 200, data: rows, message: 'Success'});
@@ -54,6 +54,16 @@ router.post('/updatePurchReq', (req, res) => {
 });
 
 router.get('/viewItemsInPr/:currentReqId', (req, res) => {
+	ctrl.viewItemsInPr(req.params.currentReqId, req.session.user.userID, (err, rows) => {
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else{
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
+		}
+		
+	});
+});
+
+router.get('/viewItemsInPo/:currentReqId', (req, res) => {
 	ctrl.viewItemsInPr(req.params.currentReqId, req.session.user.userID, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
