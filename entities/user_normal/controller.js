@@ -84,14 +84,15 @@ module.exports.addNewPurchReq = function(user, callback){
 	);
 }
 
-module.exports.addPurchItem = function(requestID, body, callback){
+module.exports.addPurchItem = function(requestID, array, callback){
 	console.log('adding items');
-	var i, itemCode, quantity;
-	for(i=0; i<body.itemCode.length; i++){
-		itemCode = body.itemCode[i];
-		quantity = body.quantity[i];
+	// var itemCode, quantity;
+	for(var i in array){
+		// itemCode = body.itemCode[i];
+		// quantity = body.quantity[i];
+		console.log(array[i].itemCode);
 		db.query('INSERT INTO pr_item VALUES (?, ?, ?)',
-		[requestID, itemCode, quantity], (err, rows) => {
+		[requestID, array[i].itemCode, array[i].quantity], (err, rows) => {
 		console.log('rows ', rows);
 		if (err) callback(err);
 		else console.log('Added to pr'); //callback(null, rows);
