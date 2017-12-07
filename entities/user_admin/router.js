@@ -53,15 +53,19 @@ router.delete('/deletePurchReq', (req, res) => {
 });
 
 router.post('/addNewItem', (req, res) => {
+		console.log('aaaaa');
+			console.log(req.body);
 	ctrl.addNewItem(req.body, (err, rows) => {
 		console.log(req.body);
+		console.log(err);
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else res.status(200).json({status: 200, data: rows, message: 'Success'});
 
 	});
 });
 
-router.post('/updateItem', (req, res) => {
+router.put('/updateItem', (req, res) => {
+
 	ctrl.updateItem(req.body, (err, rows) => {
 		console.log(req.body);
 		if (err) res.status(500).json({status: 500, message: 'Server error'});

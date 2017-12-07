@@ -74,8 +74,8 @@ module.exports.updatePurchReq = function(body, userID, callback){
 
 module.exports.addNewPurchReq = function(user, callback){
 	const date = new Date();
-	console.log('adding here!!!');
-	db.query('INSERT INTO pr VALUES (0, ?, ?, ?, ?)',
+	
+	db.query('INSERT INTO pr VALUES (default, ?, ?, ?, ?)',
 		[user, date, null, null], (err, rows) => {
 		console.log('rows ', rows)
 		if (err) callback(err);
