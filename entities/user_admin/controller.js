@@ -90,8 +90,8 @@ module.exports.addNewItem = function(body, callback){
 			callback(null, "ALREADY_EXISTS");
 		}
 		else {
-			db.query('INSERT INTO item VALUES (0, ?, ?, ?, ?, ?)',
-			[body.itemCode, body.name, body.supplier, body.unitPrice, body.quantity, body.description], (err, rows) => {
+			db.query('INSERT INTO item VALUES (DEFAULT, ?, ?, ?, ?, ?)',
+			[body.name, body.supplier, body.unitPrice, body.quantity, body.description], (err, rows) => {
 			console.log('rows ', rows);
 			if (err) callback(err);
 			else callback(null, "SUCCESS");

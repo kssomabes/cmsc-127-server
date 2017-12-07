@@ -63,7 +63,7 @@ CREATE TABLE delivered_mat(
 -- Item Inventory: users are only allowed to request the items that exist here
 
 CREATE TABLE item(
-	itemCode INT (5) NOT NULL PRIMARY KEY,
+	itemCode INT (5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR (30) NOT NULL, 
 	supplier VARCHAR (30) NOT NULL,
 	unitPrice DECIMAL(5,2) NOT NULL,
