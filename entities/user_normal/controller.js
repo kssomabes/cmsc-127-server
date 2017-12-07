@@ -152,3 +152,10 @@ module.exports.viewMyDelivery = function (userID, callback){
 		else callback(null, rows);
 	});
 }
+
+module.exports.findItem = function (itemName, callback){
+	db.query('SELECT * FROM item WHERE name LIKE ?', itemName, (err, rows) => {
+		if (err) callback(err);
+		else callback(null, rows);
+	});
+}
