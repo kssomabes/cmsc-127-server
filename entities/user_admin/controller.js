@@ -111,15 +111,20 @@ module.exports.updateItem = function(body, callback){
 }
 
 module.exports.deleteItem = function(itemCode, callback){
-	//db.query('SELECT * FROM pr a, pr_item b WHERE a.requestID = b.requestID AND b.itemCode = ? OR a.dateApproved IS NOT NULL)', itemCode, (err, rows) => {
-	db.query('DELETE FROM item WHERE itemCode = ?',
-		itemCode, (err, rows) => {
-			console.log('rows ', rows);
+	db.query('SELECT * FROM pr a, pr_item b WHERE a.requestID = b.requestID AND a.dateApproved IS NOT NULL AND b.itemCode = ?', itemCode, (err, rows) => {
+			console.log('rows1 ', rows);
 			if (err) callback(err);
-			else callback(null, rows);
-
+			else if (rows[0]!==undefined) {
+			console.log("Unable to delete item");
+			callback(rows);
+			}else{
+				db.query('DELETE FROM item WHERE itemCode = ?', itemCode, (err, rows) => {
+				console.log('rows ', rows);
+				if (err) callback(err);
+				else callback(null, rows);
+			});
 		}
-	);
+	});
 }
 
 module.exports.prNjoinItem = function(callback){

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 var ctrl = require('./controller');
 
+// view only the user's purchReq
 router.get('/getMyPurchReq', (req, res) => {
 	ctrl.getMyPurchReq(req.session.user.userID, (err, rows) => {
 		console.log(req.session.user.username);
@@ -11,6 +12,7 @@ router.get('/getMyPurchReq', (req, res) => {
 	
 });
 
+// view the user's approved purchReq
 router.get('/getMyPurchOrder', (req, res) => {
 	ctrl.getMyPurchOrder(req.session.user.userID, (err, rows) => {
 		console.log(req.session.user.username);
@@ -20,6 +22,7 @@ router.get('/getMyPurchOrder', (req, res) => {
 	});
 });
 
+// delete's a user's purchReq as long as it's not approved yet
 router.delete('/deleteMyPR/:req_id', (req, res) => {
 	ctrl.deletePurchReq(req.params.req_id, req.session.user.userID, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
@@ -28,6 +31,7 @@ router.delete('/deleteMyPR/:req_id', (req, res) => {
 	});
 });
 
+// adds a new purchReq
 router.post('/addNewPurchReq', (req, res) => {
 	ctrl.addNewPurchReq(req.session.user.userID, (err, rows) => {
 		// var body = [ 
@@ -48,6 +52,7 @@ router.post('/addNewPurchReq', (req, res) => {
 	});
 });
 
+// updates a purchReq as long as it's not approved yet
 router.put('/updatePurchReq', (req, res) => {
 	ctrl.updatePurchReq(req.body, req.session.user.userID, (err, rows) => {
 		console.log(req.body);
@@ -57,6 +62,7 @@ router.put('/updatePurchReq', (req, res) => {
 	});
 });
 
+// view items in the user's purchReq
 router.get('/viewItemsInPr/:currentReqId', (req, res) => {
 	console.log(req.session);
 	ctrl.viewItemsInPr(req.params.currentReqId, req.session.user.userID, (err, rows) => {
@@ -68,6 +74,7 @@ router.get('/viewItemsInPr/:currentReqId', (req, res) => {
 	});
 });
 
+// view items in the user's purchOrder
 router.get('/viewItemsInPo/:currentReqId', (req, res) => {
 	ctrl.viewItemsInPo(req.params.currentReqId, req.session.user.userID, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
@@ -78,6 +85,7 @@ router.get('/viewItemsInPo/:currentReqId', (req, res) => {
 	});
 });
 
+// views delivered_mat status
 router.get('/viewMyDelivery', (req, res) => {
 	ctrl.viewMyDelivery(req.session.user.userID, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
