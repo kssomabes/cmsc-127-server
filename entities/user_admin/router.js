@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 var ctrl = require('./controller');
 
+// view all admin users
 router.get('/', (req, res) => {
 	ctrl.getAll((err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
@@ -11,6 +12,7 @@ router.get('/', (req, res) => {
 	});
 });	
 
+// view all purchreq
 router.get('/getAllPurchReq', (req, res) => {
 	ctrl.getAllPurchReq((err, rows) => {
 
@@ -22,6 +24,7 @@ router.get('/getAllPurchReq', (req, res) => {
 	});
 });
 
+// view all unapproved purchreq
 router.get('/getAllPurchOrder', (req, res) => {
 	ctrl.getAllPurchOrder((err, rows) => {
 
@@ -33,6 +36,7 @@ router.get('/getAllPurchOrder', (req, res) => {
 	});
 });
 
+// view an item
 router.get('/getItem/:item_code', (req, res) => {
 	ctrl.getItem(req.params.item_code, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
@@ -43,6 +47,7 @@ router.get('/getItem/:item_code', (req, res) => {
 	});
 });
 
+// delete a purchreq
 router.delete('/deletePurchReq', (req, res) => {
 	ctrl.deletePurchReq(req.body.requestID, (err, rows) => {
 		console.log(req.body.requestID);
@@ -52,6 +57,7 @@ router.delete('/deletePurchReq', (req, res) => {
 	});
 });
 
+// add new item to inventory
 router.post('/addNewItem', (req, res) => {
 		console.log('aaaaa');
 			console.log(req.body);
@@ -64,6 +70,7 @@ router.post('/addNewItem', (req, res) => {
 	});
 });
 
+// updates an item in the inventory
 router.put('/updateItem', (req, res) => {
 
 	ctrl.updateItem(req.body, (err, rows) => {
@@ -74,15 +81,17 @@ router.put('/updateItem', (req, res) => {
 	});
 });
 
-router.delete('/deleteItem', (req, res) => {
-	ctrl.deleteItem(req.body.itemCode, (err, rows) => {
-		console.log(req.body.itemCode);
+// deletes an item
+router.delete('/deleteItem/:item_code', (req, res) => {
+	ctrl.deleteItem(req.params.item_code, (err, rows) => {
+		console.log(req.params.item_code);
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else res.status(200).json({status: 200, data: rows, message: 'Success'});
 
 	});
 });
 
+// shows items in a purchReq
 router.get('/prNjoinItem', (req, res) => {
 	ctrl.prNjoinItem((err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
@@ -92,6 +101,7 @@ router.get('/prNjoinItem', (req, res) => {
 	});
 });
 
+// shows items in a purchOrder
 router.get('/poNjoinItem', (req, res) => {
 	ctrl.poNjoinItem((err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
@@ -101,6 +111,7 @@ router.get('/poNjoinItem', (req, res) => {
 	});
 });
 
+// approves a purchReq;
 router.put('/approve/:req_id', (req, res) => {
 	ctrl.approvePurchReq(req.params.req_id, req.session.user.userID, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
@@ -110,6 +121,7 @@ router.put('/approve/:req_id', (req, res) => {
 	});
 });
 
+// view all items in a purchReq
 router.get('/viewItemsInPr/:currentReqId', (req, res) => {
 	ctrl.viewItemsInPr(req.params.currentReqId, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
@@ -120,6 +132,7 @@ router.get('/viewItemsInPr/:currentReqId', (req, res) => {
 	});
 });
 
+// view all items in a purchOrder
 router.get('/viewItemsInPo/:currentReqId', (req, res) => {
 	ctrl.viewItemsInPo(req.params.currentReqId, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});

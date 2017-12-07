@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 var ctrl = require('./controller');
 
+// displays the item's itemCode, name, quantity, description
 router.get('/showItems', (req, res) => {
 	console.log('show items');
 	ctrl.showItems((err, rows) => {
@@ -10,6 +11,7 @@ router.get('/showItems', (req, res) => {
 	});		
 });
 
+// displays all columns in the item table
 router.get('/showItemsNoFilter', (req, res) => {
 	console.log('show items');
 	ctrl.showItemsNoFilter((err, rows) => {
