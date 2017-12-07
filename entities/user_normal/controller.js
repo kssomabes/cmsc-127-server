@@ -75,7 +75,6 @@ module.exports.updatePurchReq = function(body, userID, callback){
 module.exports.addNewPurchReq = function(user, callback){
 	const date = new Date();
 	console.log('adding here!!!');
-
 	db.query('INSERT INTO pr VALUES (0, ?, ?, ?, ?)',
 		[user, date, null, null], (err, rows) => {
 		console.log('rows ', rows)
@@ -85,15 +84,19 @@ module.exports.addNewPurchReq = function(user, callback){
 	);
 }
 
-module.exports.addPurchItem = function(body, callback){
+module.exports.addPurchItem = function(requestID, body, callback){
 	console.log('adding items');
-	db.query('INSERT INTO pr_item VALUES (?, ?, ?)',
-		[body.requestID, body.itemCode, body.quantity], (err, rows) => {
+	var i, itemCode, quantity;
+	for(i=0; i<body.itemCode.length; i++){
+		itemCode = body.itemCode[i];
+		quantity = body.quantity[i];
+		db.query('INSERT INTO pr_item VALUES (?, ?, ?)',
+		[requestID, itemCode, quantity], (err, rows) => {
 		console.log('rows ', rows);
 		if (err) callback(err);
-		else callback(null, rows);
-		}
-	);
+		else console.log('Added to pr'); //callback(null, rows);
+		});
+	}
 }
 
 module.exports.viewItemsInPr = function (currentReqId, userID, callback){
