@@ -181,7 +181,14 @@ module.exports.viewItemsInPr = function (currentReqId, callback){
 
 module.exports.viewItemsInPo = function (currentReqId, callback){
 	db.query('SELECT a.itemCode as itemCode, a.quantity as reqQuantity, b.name as name, b.supplier as supplier, b.unitPrice as unitPrice, b.quantity as curQuantity, b.description as description FROM pr_item a, item b WHERE a.requestID = ? AND a.itemCode = b.itemCode', currentReqId, (err, rows) => {
-			console.log('rows ', rows);
+			if (err) callback(err);
+			else callback(null, rows);		
+		}
+	);
+}
+
+module.exports.getAllDelivery = function (callback){
+	db.query('SELECT * FROM delivered_mat',  (err, rows) => {
 			if (err) callback(err);
 			else callback(null, rows);		
 		}
