@@ -138,3 +138,10 @@ module.exports.viewItemsInPo = function (currentReqId, userID, callback){
 		}
 	});
 }
+
+module.exports.viewMyDelivery = function (userID, callback){
+	db.query('SELECT requestID, deliveryDate from delivered_mat	WHERE userID = ?', userID, (err, rows) => {
+		if (err) callback(err);
+		else callback(null, rows);
+	});
+}
