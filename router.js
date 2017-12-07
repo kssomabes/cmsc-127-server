@@ -4,6 +4,7 @@ const router = express.Router();
 const auth = require('./entities/auth/router');
 const user_admin = require ('./entities/user_admin/router');
 const user_normal = require('./entities/user_normal/router');
+const item = require('./entities/item/router');
 
 router.use(auth); 
 /*
@@ -14,7 +15,7 @@ router.use((req, res, next)=> {
 });
 */
 
-
+router.use('/item', item);
 router.use('/user_admin', user_admin);
 router.use('/user_normal', user_normal);
 

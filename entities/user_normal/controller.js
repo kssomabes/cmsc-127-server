@@ -96,15 +96,16 @@ module.exports.addPurchItem = function(body, callback){
 
 module.exports.viewItemsInPr = function (currentReqId, userID, callback){
 	db.query('SELECT * FROM pr WHERE requestID = ? AND userID = ? AND dateApproved IS NULL', [currentReqId, userID], (err, rows) => {
-		console.log('rows ', rows);
+		console.log('rows 1 ', rows);
+		console.log(err);
 		if (err) callback(err);
-		else if (rows[0]===undefined) {
+		else if (rows===undefined || rows.length == 0) {
 			console.log("No rows found");
 			callback(rows);
 		}
 		else {
 			db.query('SELECT a.itemCode as itemCode, a.quantity as reqQuantity, b.name as name, b.supplier as supplier, b.unitPrice as unitPrice, b.quantity as curQuantity, b.description as description FROM pr_item a, item b WHERE a.requestID = ? AND a.itemCode = b.itemCode', currentReqId, (err, rows) => {
-				console.log('rows ', rows);
+				console.log('rows 2', rows);
 				console.log(err);
 				if (err) callback(err);
 				else callback(null, rows);
@@ -113,17 +114,18 @@ module.exports.viewItemsInPr = function (currentReqId, userID, callback){
 	});
 }
 
-module.exports.viewItemsInPr = function (currentReqId, userID, callback){
+module.exports.viewItemsInPo = function (currentReqId, userID, callback){
 	db.query('SELECT * FROM pr WHERE requestID = ? AND userID = ? AND dateApproved IS NOT NULL', [currentReqId, userID], (err, rows) => {
-		console.log('rows ', rows);
+		console.log(err);
+		console.log('rows 1', rows);
 		if (err) callback(err);
-		else if (rows[0]===undefined) {
+		else if (rows === undefined || rows.length == 0) {
 			console.log("No rows found");
-			callback(rows);
+			callback(null, rows);
 		}
 		else {
 			db.query('SELECT a.itemCode as itemCode, a.quantity as reqQuantity, b.name as name, b.supplier as supplier, b.unitPrice as unitPrice, b.quantity as curQuantity, b.description as description FROM pr_item a, item b WHERE a.requestID = ? AND a.itemCode = b.itemCode', currentReqId, (err, rows) => {
-				console.log('rows ', rows);
+				console.log('rows 2', rows);
 				console.log(err);
 				if (err) callback(err);
 				else callback(null, rows);

@@ -54,6 +54,7 @@ router.put('/updatePurchReq', (req, res) => {
 });
 
 router.get('/viewItemsInPr/:currentReqId', (req, res) => {
+	console.log(req.session);
 	ctrl.viewItemsInPr(req.params.currentReqId, req.session.user.userID, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
