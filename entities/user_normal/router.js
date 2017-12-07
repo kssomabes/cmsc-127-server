@@ -21,7 +21,7 @@ router.get('/getMyPurchOrder', (req, res) => {
 });
 
 router.delete('/deleteMyPR/:req_id', (req, res) => {
-	ctrl.deletePurchReq(req.params.req_id, (err, rows) => {
+	ctrl.deletePurchReq(req.params.req_id, req.session.user.userID, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else res.status(200).json({status: 200, data: rows, message: 'Success'});
 
@@ -50,6 +50,16 @@ router.post('/updatePurchReq', (req, res) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else res.status(200).json({status: 200, data: rows, message: 'Success'});
 
+	});
+});
+
+router.get('/viewItemsInPr/:currentReqId', (req, res) => {
+	ctrl.viewItemsInPr(req.params.currentReqId, req.session.user.userID, (err, rows) => {
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else{
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
+		}
+		
 	});
 });
 

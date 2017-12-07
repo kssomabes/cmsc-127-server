@@ -25,12 +25,16 @@ module.exports.getMyPurchOrder = function(userID, callback){
 }
 
 
-module.exports.deletePurchReq = function(requestID, callback){
+module.exports.deletePurchReq = function(requestID, userID, callback){
 	//Checks first if purch req is not approved yet
-	db.query('SELECT * FROM pr WHERE requestID = ? AND dateApproved IS NULL',
-		requestID, (err, rows) => {
+	db.query('SELECT * FROM pr WHERE requestID = ? AND userID = ? AND dateApproved IS NULL',
+		[requestID, userID], (err, rows) => {
 		console.log('rows ', rows);
 		if (err) callback(err);
+		else if (rows[0]===undefined) {
+			console.log("No rows found");
+			callback(rows);
+		}
 		else{
 			db.query('DELETE FROM pr_item WHERE requestID = ?',
 				requestID, (err, rows) => {
@@ -80,4 +84,23 @@ module.exports.addPurchItem = function(body, callback){
 		else callback(null, rows);
 		}
 	);
+}
+
+module.exports.viewItemsInPr = function (currentReqId, userID, callback){
+	db.query('SELECT * FROM pr WHERE requestID = ? AND userID = ? AND dateApproved IS NULL', [currentReqId, userID], (err, rows) => {
+		console.log('rows ', rows);
+		if (err) callback(err);
+		else if (rows[0]===undefined) {
+			console.log("No rows found");
+			callback(rows);
+		}
+		else {
+			db.query('SELECT a.itemCode as itemCode, a.quantity as reqQuantity, b.name as name, b.supplier as supplier, b.unitPrice as unitPrice, b.quantity as curQuantity, b.description as description FROM pr_item a, item b WHERE a.requestID = ? AND a.itemCode = b.itemCode', currentReqId, (err, rows) => {
+				console.log('rows ', rows);
+				console.log(err);
+				if (err) callback(err);
+				else callback(null, rows);
+			});
+		}
+	});
 }
