@@ -42,8 +42,8 @@ router.post('/addNewPurchReq', (req, res) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
 			var requestID = rows.insertId;
-			res.status(200).json({status: 200, data: rows, message: 'Successfully added to pr'});
-			ctrl.addPurchItem(requestID, body, (err2, rows2) => {
+
+			ctrl.addPurchItem(requestID, req.body, (err2, rows2) => {
 				if (err) res.status(500).json({status: 500, message: 'Server error'});
 				else res.status(200).json({status: 200, data: rows2, message: 'Successfully added to pr_item'});
 
