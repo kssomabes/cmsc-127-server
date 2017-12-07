@@ -85,19 +85,25 @@ module.exports.addNewPurchReq = function(user, callback){
 }
 
 module.exports.addPurchItem = function(requestID, array, callback){
-	console.log('adding items');
+	var success = false; 
+	console.log('adding items ', array);
 	// var itemCode, quantity;
-	for(var i in array){
+	for(var i=0; i<array.length; i++){
 		// itemCode = body.itemCode[i];
 		// quantity = body.quantity[i];
 		console.log(array[i].itemCode);
 		db.query('INSERT INTO pr_item VALUES (?, ?, ?)',
 		[requestID, array[i].itemCode, array[i].quantity], (err, rows) => {
-		console.log('rows ', rows);
-		if (err) callback(err);
-		else console.log('Added to pr'); //callback(null, rows);
-		});
+			if (err){
+				success = false;
+				callback(err);
+			}else{ 
+				success = true;
+		}});
 	}
+
+	if (!success) callback(null, 'FAIL');
+	else callback(null, 'SUCCESS');
 }
 
 module.exports.viewItemsInPr = function (currentReqId, userID, callback){
