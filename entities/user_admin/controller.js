@@ -111,6 +111,7 @@ module.exports.updateItem = function(body, callback){
 }
 
 module.exports.deleteItem = function(itemCode, callback){
+	db.query('SELECT * FROM item where itemCode NOT IN (SELECT b.itemCode from pr a, pr_item b WHERE a.requestID = b.requestID AND a.dateApproved IS NOT NULL);', body.name, (err, rows) => {
 	db.query('DELETE FROM item WHERE itemCode = ?',
 		itemCode, (err, rows) => {
 			console.log('rows ', rows);
