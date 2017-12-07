@@ -51,7 +51,7 @@ CREATE TABLE pr(
 
 CREATE TABLE delivered_mat(
 	requestID INT (5) NOT NULL PRIMARY KEY,
-	userID INT (5) NOT NULL,
+	userID INT (5) DEFAULT NULL,
 	deliveryDate datetime ,
 	-- userRequester can be derived by getting the userID then getting the name
 	CONSTRAINT delivered_mat_user_fk FOREIGN KEY (userID)
@@ -510,3 +510,15 @@ INSERT INTO pr_item (`requestID`, `itemCode`, `quantity`) VALUES(40, 8, 7);
 
 INSERT INTO pr (`requestID`, `userID`, `dateSubmitted`, `dateApproved`, `approvedBy`) VALUES (41, 1, NOW(), NOW(), 3);
 INSERT INTO pr_item (`requestID`, `itemCode`, `quantity`) VALUES(41, 13, 2);
+
+-- Database insertion for delivered_mat --
+INSERT INTO delivered_mat VALUES (2, NULL, NOW());
+INSERT INTO delivered_mat VALUES (9, NULL, '2015-03-16 10:48:39');
+INSERT INTO delivered_mat VALUES (10, NULL, '2014-03-27 11:48:39');
+INSERT INTO delivered_mat VALUES (11, NULL, NOW());
+INSERT INTO delivered_mat VALUES (12, NULL, NOW());
+INSERT INTO delivered_mat VALUES (34, 22, '2016-07-17 05:57:39');
+INSERT INTO delivered_mat VALUES (35, 35, '2016-07-18 05:57:39');
+INSERT INTO delivered_mat VALUES (36, 1, '2016-07-21 05:57:39');
+INSERT INTO delivered_mat VALUES (40, 22, NOW());
+INSERT INTO delivered_mat VALUES (41, 1, NOW());

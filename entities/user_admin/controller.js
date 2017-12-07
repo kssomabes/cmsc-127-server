@@ -111,7 +111,7 @@ module.exports.updateItem = function(body, callback){
 }
 
 module.exports.deleteItem = function(itemCode, callback){
-	db.query('SELECT * FROM pr a, pr_item b WHERE a.requestID = b.requestID AND a.dateApproved IS NOT NULL AND b.itemCode = ?', itemCode, (err, rows) => {
+	db.query('SELECT * FROM pr a JOIN pr_item b on a.requestID = b.requestID WHERE a.dateApproved IS NOT NULL AND b.itemCode = ?', itemCode, (err, rows) => {
 			console.log('rows1 ', rows);
 			if (err) callback(err);
 			else if (rows[0]!==undefined) {
