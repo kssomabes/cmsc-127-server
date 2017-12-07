@@ -105,7 +105,7 @@ module.exports.updateItem = function(body, callback){
 		[body.name, body.supplier, body.unitPrice, body.quantity, body.description, body.itemCode], (err, rows) => {
 			console.log('rows ', rows);
 			if (err) callback(err);
-			else callback(null, rows);
+			else callback(null, 'SUCCESS');
 		}
 	);
 }

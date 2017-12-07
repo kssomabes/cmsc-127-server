@@ -64,7 +64,7 @@ router.post('/addNewItem', (req, res) => {
 	});
 });
 
-router.post('/updateItem', (req, res) => {
+router.put('/updateItem', (req, res) => {
 
 	ctrl.updateItem(req.body, (err, rows) => {
 		console.log(req.body);
