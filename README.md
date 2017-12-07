@@ -2,4 +2,4 @@
 
 `yarn install` then `yarn run build` and `yarn start`.
 
-Then run the client [backend](https://github.com/kssomabes/cmsc-127-client)
+Then run the [client](https://github.com/kssomabes/cmsc-127-client)
