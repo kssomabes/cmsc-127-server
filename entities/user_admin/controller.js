@@ -196,3 +196,18 @@ module.exports.getAllDelivery = function (callback){
 		}
 	);
 }
+
+module.exports.findItem = function (itemName, callback){
+	db.query('SELECT * FROM item WHERE name LIKE ?', itemName, (err, rows) => {
+		if (err) callback(err);
+		else callback(null, rows);
+	});
+}
+
+module.exports.findPr = function (req_id, callback){
+	var id = req_id + '%';
+	db.query('SELECT * FROM pr WHERE requestID LIKE ? AND dateApproved IS NULL', id, (err, rows) => {
+		if (err) callback(err);
+		else callback(null, rows);
+	});
+}
