@@ -32,9 +32,10 @@ router.post('/addNewPurchReq', (req, res) => {
 	ctrl.addNewPurchReq(req.session.user.userID, (err, rows) => {
 		if (err) res.status(500).json({status: 500, message: 'Server error'});
 		else{
+			var requestID = rows.insertId;
 			res.status(200).json({status: 200, data: rows, message: 'Successfully added to pr'});
-			ctrl.addPurchItem(req.body, (err2, rows2) => {
-				console.log(' you n eed ', req.body);
+			ctrl.addPurchItem(requestID, req.body, (err2, rows2) => {
+				//console.log(' you n eed ', req.body);
 				if (err) res.status(500).json({status: 500, message: 'Server error'});
 				else res.status(200).json({status: 200, data: rows2, message: 'Successfully added to pr_item'});
 
