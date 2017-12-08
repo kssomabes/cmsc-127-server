@@ -190,7 +190,16 @@ module.exports.viewItemsInPo = function (currentReqId, callback){
 }
 
 module.exports.getAllDelivery = function (callback){
-	db.query('SELECT * FROM delivered_mat',  (err, rows) => {
+	db.query('SELECT * FROM delivered_mat ORDER BY deliveryDate desc',  (err, rows) => {
+			if (err) callback(err);
+			else callback(null, rows);		
+		}
+	);
+}
+
+
+module.exports.getUserID = function (name, callback){
+	db.query('SELECT userID FROM user WHERE name = ?', name,  (err, rows) => {
 			if (err) callback(err);
 			else callback(null, rows);		
 		}
@@ -200,6 +209,7 @@ module.exports.getAllDelivery = function (callback){
 module.exports.insertDelivery = function (reqId, callback){
 	var date = new Date();
 	db.query('INSERT INTO delivered_mat VALUES (?, ?, ?)', [reqId, null, date], (err, rows) => {
+		console.log(err);
 		if (err) callback(err);
 		else callback(null, 'SUCCESS');		
 	});

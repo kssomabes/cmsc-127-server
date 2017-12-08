@@ -512,7 +512,6 @@ INSERT INTO pr (`requestID`, `userID`, `dateSubmitted`, `dateApproved`, `approve
 INSERT INTO pr_item (`requestID`, `itemCode`, `quantity`) VALUES(41, 13, 2);
 
 -- Database insertion for delivered_mat --
-INSERT INTO delivered_mat VALUES (2, NULL, NOW());
 INSERT INTO delivered_mat VALUES (9, NULL, '2015-03-16 10:48:39');
 INSERT INTO delivered_mat VALUES (10, NULL, '2014-03-27 11:48:39');
 INSERT INTO delivered_mat VALUES (11, NULL, NOW());

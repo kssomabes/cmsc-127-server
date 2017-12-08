@@ -175,6 +175,25 @@ router.get('/findPr/:req_id', (req, res) => {
 	});
 });
 
+router.post('/insertDelivery', (req, res) => {
+	ctrl.insertDelivery(req.body.requestID, (err, rows) => {
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else{
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
+		}
+	});
+});
+
+
+// view all purch req of user
+router.get('/getAllPR/:user_id', (req, res) => {
+	ctrl.getAllPurchReqOfUser(req.params.user_id, (err, rows) => {
+		if (err) res.status(500).json({status: 500, message: 'Server error'});
+		else{
+			res.status(200).json({status: 200, data: rows, message: 'Success'});
+		}
+	});
+});
 
 
 module.exports = router;
