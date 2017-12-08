@@ -27,4 +27,9 @@ router.get('/session', (req, res)=>{
 
 });
 
+router.get('/logout', (req, res)=>{
+	req.session.destroy();
+	res.send('Logout successful');
+});
+
 module.exports = router

@@ -166,8 +166,7 @@ module.exports.getItem = function (itemCode, callback){
 			else callback(null, rows);		
 			
 		}
-	);
-		
+	);	
 }
 
 module.exports.viewItemsInPr = function (currentReqId, callback){
