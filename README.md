@@ -1,8 +1,8 @@
-<h1 align="center"></br> PURCHASE REQUISITION SYSTEM </br>
+<h1 align="center"></br> Purchase Requisition System </br>
 	      <img src="https://img.shields.io/badge/status-development-yellow.svg" />
 </h1>
 </br>
-<h4 align="center">A system for recording purchase requisitions, purchase orders, inventory and delivered materials in a company. </h4>
+<h4 align="center">A system for recording purchase requisitions, purchase orders, inventory and delivered materials in a company. </br></br> In partial fulfillment of the requirements for CMSC 127: File Processing and Database Systems</h4>
 
 # Installation
 1. Install [NodeJS](https://nodejs.org/en/download/) and [MySQL](https://dev.mysql.com/downloads/installer/).
