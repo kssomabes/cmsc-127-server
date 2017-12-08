@@ -95,15 +95,4 @@ router.get('/viewMyDelivery', (req, res) => {
 	});
 });
 
-// search for items
-router.get('/findItem/:item_name', (req, res) => {
-	ctrl.findItem(req.params.item_name, (err, rows) => {
-		if (err) res.status(500).json({status: 500, message: 'Server error'});
-		else if (rows.length == 0) res.status(200).json({status: 200, data: rows, message: 'Item Not Found'});
-		else{
-			res.status(200).json({status: 200, data: rows, message: 'Success'});
-		}
-	});
-});
-
 module.exports = router;

@@ -197,6 +197,14 @@ module.exports.getAllDelivery = function (callback){
 	);
 }
 
+module.exports.insertDelivery = function (reqId, callback){
+	var date = new Date();
+	db.query('INSERT INTO delivered_mat VALUES (?, ?, ?)', [reqId, null, date], (err, rows) => {
+		if (err) callback(err);
+		else callback(null, 'SUCCESS');		
+	});
+}
+
 module.exports.findItem = function (itemName, callback){
 	db.query('SELECT * FROM item WHERE name LIKE ?', itemName, (err, rows) => {
 		if (err) callback(err);
@@ -205,8 +213,8 @@ module.exports.findItem = function (itemName, callback){
 }
 
 module.exports.findPr = function (req_id, callback){
-	var id = req_id + '%';
-	db.query('SELECT * FROM pr WHERE requestID LIKE ? AND dateApproved IS NULL', id, (err, rows) => {
+  const values = [`${req_id}%`];
+	db.query('SELECT * FROM pr WHERE requestID LIKE ? AND dateApproved IS NULL', values, (err, rows) => {
 		if (err) callback(err);
 		else callback(null, rows);
 	});
