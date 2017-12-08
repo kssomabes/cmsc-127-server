@@ -154,7 +154,9 @@ module.exports.viewMyDelivery = function (userID, callback){
 }
 
 module.exports.findItem = function (itemName, callback){
-	db.query('SELECT * FROM item WHERE name LIKE ?', itemName, (err, rows) => {
+  const values = [`%${itemName}%`];
+
+	db.query('SELECT * FROM item WHERE name LIKE ?', values, (err, rows) => {
 		if (err) callback(err);
 		else callback(null, rows);
 	});

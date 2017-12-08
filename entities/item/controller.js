@@ -13,3 +13,13 @@ module.exports.showItemsNoFilter = function (callback){
 		else callback(null, rows);
 	});
 }
+
+
+module.exports.findItem = function (itemName, callback){
+  const values = [`%${itemName}%`];
+
+	db.query('SELECT * FROM item WHERE name LIKE ?', values, (err, rows) => {
+		if (err) callback(err);
+		else callback(null, rows);
+	});
+}
